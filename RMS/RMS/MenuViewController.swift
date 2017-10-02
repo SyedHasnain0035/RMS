@@ -17,7 +17,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.navigationController?.toolbar.backgroundColor = UIColor.green
         for i  in 0 ..< 5 {
             print(i)
-            let saveItem = Menu(itemId: i, itemName: "item \(i)", itemImage: "item \(i)")
+            let saveItem = Menu(itemId: i, itemName: "item \(i)", itemImage: "item \(i)",itemCount: 0)
             menuList.append(saveItem)
             if i == 4 {
                 myTabelView.reloadData()
@@ -41,6 +41,10 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selected: \(indexPath.row)")
+        let nextVC = storyboard?.instantiateViewController(withIdentifier: "CategoriesDetailViewController") as! CategoriesDetailViewController
+        nextVC.indexNo = indexPath.row
+        nextVC.selectedItems = menuList
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 110
